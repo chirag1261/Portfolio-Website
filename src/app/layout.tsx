@@ -6,6 +6,16 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { SoundProvider } from "@/components/providers/SoundContext";
+import { PageLoader } from "@/components/layout/PageLoader";
+import dynamic from "next/dynamic";
+
+const AnimatedFavicon = dynamic(
+  () =>
+    import("@/components/layout/AnimatedFavicon").then(
+      (m) => m.AnimatedFavicon,
+    ),
+  { ssr: false },
+);
 
 // Font configurations
 const inter = Inter({
@@ -167,6 +177,8 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <SoundProvider>
+            <AnimatedFavicon />
+            <PageLoader />
             <SmoothScroll>
               <div className="relative min-h-screen">
                 <Navbar />

@@ -9,11 +9,14 @@ import {
 } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 interface Experience {
   id: number;
   role: string;
   company: string;
+  logo: string;
+  logoDarkBg?: boolean;
   period: string;
   location: string;
   description: string[];
@@ -23,29 +26,39 @@ interface Experience {
 const experiences: Experience[] = [
   {
     id: 1,
-    role: "SDE 2",
+    role: "SDE 2 — Full Stack Engineer",
     company: "Junglee Games",
+    logo: "/logos/junglee-games.png",
     period: "January 2026 - Present",
     location: "Gurugram, India",
     description: [
-      "Designed and owned a scalable promo code and discount system, supporting configurable validation rules, stacking logic, expiry windows, and eligibility constraints, enabling rapid experimentation and improving campaign agility and monetization outcomes.",
-      "Integrated Worldpay payment gateway, handling end-to-end flows including payment initiation, callbacks, reconciliation, failure handling, and retries, contributing to a reduction in payment drop-offs and improved transaction success rates.",
-      "Integrated Meta (Facebook) event tracking across critical user funnels (registration, deposits, gameplay, and promotional interactions), enabling accurate attribution, data-driven campaign optimization, and measurable improvements in marketing ROI.",
+      "Architected scalable promo code & discount system end-to-end with reusable React/TypeScript components, configurable validation, stacking logic, and NestJS/AWS backend services enabling rapid campaign experimentation.",
+      "Integrated Worldpay payment gateway with responsive UI flows for initiation, failure handling, and reconciliation, improving transaction success rates and reducing drop-offs.",
+      "Integrated Meta event tracking across critical funnels (registration, deposits, gameplay), enabling data-driven campaign optimization with measurable ROI improvements.",
+      "Spearheaded frontend modernization for 800K+ user platform: migrated to feature-based modular architecture, extracted shared hooks/components/utilities, and leveraged AI-assisted code generation for large-scale refactoring.",
     ],
-    technologies: ["Node.js", "TypeScript", "MongoDB", "Redis", "REST APIs"],
+    technologies: [
+      "React.js",
+      "TypeScript",
+      "Node.js",
+      "Nest.js",
+      "AWS",
+      "MongoDB",
+      "Redis",
+    ],
   },
   {
     id: 2,
-    role: "SDE 1",
+    role: "SDE 1 — Frontend Engineer",
     company: "Junglee Games",
+    logo: "/logos/junglee-games.png",
     period: "August 2024 - December 2025",
     location: "Gurugram, India",
     description: [
-      "Implemented RBAC with 20+ permissions, integrated advanced rules (time-based highlighting/pinning, discount periods, eligibility checks), and built schema-driven TypeScript forms with utilities for accurate dynamic payloads.",
-      "Spearheaded the development of interactive marketing features for a leading online gaming platform, enhancing engagement for 800K+ users through gamified promotions like Spin the Wheel, Slot Machine, Streak Challenge, and quiz-based reward flows.",
-      "Designed and optimized complex SQL queries, improving efficiency and reducing execution time across high-traffic apps, while contributing to scalable, high-availability backend data architecture.",
-      "Integrated VIP-tier-based gamification mechanics, mapping rewards and experiences dynamically based on user category and activity, improving personalization and retention KPIs.",
-      "Built real-time promo progress trackers using API-driven state updates, guiding users through milestone-based journeys.",
+      "Built high-performance, accessible React UI features — Spin the Wheel, Slot Machine, Streak Challenge, Drop or Not — enhancing engagement for 800K+ users through gamified real-time interfaces.",
+      "Developed reusable, schema-driven TypeScript component libraries with dynamic payload utilities, improving maintainability and developer productivity across multiple teams.",
+      "Implemented RBAC (20+ permissions) with time-based UI rules using OOP patterns; optimized complex SQL queries across high-traffic distributed systems, significantly improving query execution efficiency.",
+      "Mentored junior developers on architecture guidelines, code review standards, and reusable component design patterns.",
     ],
     technologies: [
       "React.js",
@@ -60,13 +73,13 @@ const experiences: Experience[] = [
     id: 3,
     role: "Frontend Developer",
     company: "Fly Realty",
+    logo: "/logos/fly-realty.png",
+    logoDarkBg: true,
     period: "January 2024 - July 2024",
     location: "Remote",
     description: [
-      "Successfully developed a Next.js dynamic application utilizing PrimeReact and Redux Saga, enabling seamless data management and asynchronous behavior.",
-      "Integrated identity and access management (IAM) to ensure secure access control and identity management across the application.",
-      "Delivered impactful landing pages for builder websites, automated Lighthouse CI and Puppeteer testing, enhancing page optimization.",
-      "Utilized ES6 JavaScript with React.js for developing responsive front-end pages and implemented a JavaScript bridge for seamless interaction between web and native components.",
+      "Built a production-grade Next.js application with PrimeReact and Redux Saga, delivering responsive interfaces with seamless async state management and cross-browser compatibility.",
+      "Automated Lighthouse CI and Puppeteer pipelines to enforce performance and accessibility standards, significantly improving web vitals scores; integrated IAM and a JavaScript bridge for web-to-native interaction.",
     ],
     technologies: [
       "Next.js",
@@ -85,6 +98,7 @@ export function Experience() {
     Array<{ id: number; x: number; y: number; angle: number; color: string }>
   >([]);
   const sparkIdRef = useRef(0);
+  const lastSparkTimeRef = useRef(0);
 
   // Track scroll progress through the experience section
   const { scrollYProgress } = useScroll({
@@ -92,8 +106,14 @@ export function Experience() {
     offset: ["start 60%", "end 40%"],
   });
 
-  // Emit firecracker sparks at the burning tip
+  // Emit firecracker sparks at the burning tip. Throttled — without this,
+  // every scroll-progress tick triggers a layout read (getBoundingClientRect)
+  // plus a React re-render, which is enough to visibly stutter scrolling.
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const now = performance.now();
+    if (now - lastSparkTimeRef.current < 70) return;
+    lastSparkTimeRef.current = now;
+
     if (!timelineRef.current) return;
     const rect = timelineRef.current.getBoundingClientRect();
     const tipY = rect.top + rect.height * latest;
@@ -167,7 +187,8 @@ export function Experience() {
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-accent-500/5 rounded-full blur-3xl" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -178,7 +199,7 @@ export function Experience() {
           <span className="text-primary-500 font-medium text-sm uppercase tracking-wider">
             Career Journey
           </span>
-          <h2 className="section-heading mt-2 text-slate-100">
+          <h2 className="section-heading mt-2 text-accent-800">
             Work <span className="gradient-text">Experience</span>
           </h2>
           <p className="section-subheading mx-auto">
@@ -191,7 +212,7 @@ export function Experience() {
           {/* Timeline Line (firecracker fuse) */}
           <div
             ref={timelineRef}
-            className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-[#334155] transform md:-translate-x-1/2"
+            className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-stone-200 transform md:-translate-x-1/2"
           >
             {/* Burning progress line */}
             <motion.div
@@ -268,7 +289,7 @@ export function Experience() {
                 }`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full border-4 border-[#0f172a] transform -translate-x-[7px] md:-translate-x-1/2 z-10 shadow-lg" />
+                <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full border-4 border-stone-50 transform -translate-x-[7px] md:-translate-x-1/2 z-10" />
 
                 {/* Card */}
                 <motion.div
@@ -277,22 +298,43 @@ export function Experience() {
                     index % 2 === 0 ? "md:pr-8" : "md:pl-8"
                   }`}
                 >
-                  <div className="card bg-[#1e293b] shadow-lg hover:shadow-xl">
+                  <div className="card">
                     {/* Header */}
                     <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-100">
-                          {exp.role}
-                        </h3>
-                        <p className="text-primary-500 font-semibold">
-                          {exp.company}
-                        </p>
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`relative flex-shrink-0 h-11 sm:h-12 flex items-center justify-center rounded-lg px-2 ${
+                            exp.logoDarkBg
+                              ? "bg-black"
+                              : "bg-white border border-stone-200"
+                          }`}
+                        >
+                          <Image
+                            src={exp.logo}
+                            alt={`${exp.company} logo`}
+                            width={exp.logoDarkBg ? 160 : 40}
+                            height={exp.logoDarkBg ? 19 : 40}
+                            className={
+                              exp.logoDarkBg
+                                ? "h-4 sm:h-[18px] w-auto object-contain"
+                                : "h-7 sm:h-8 w-auto object-contain"
+                            }
+                          />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-accent-800">
+                            {exp.role}
+                          </h3>
+                          <p className="text-primary-600 font-semibold">
+                            {exp.company}
+                          </p>
+                        </div>
                       </div>
                       <div className="text-right">
-                        <span className="inline-block px-3 py-1 bg-sky-900/40 text-sky-400 text-xs font-medium rounded-full">
+                        <span className="inline-block px-3 py-1 bg-primary-50 text-primary-700 text-xs font-medium rounded-full">
                           {exp.period}
                         </span>
-                        <p className="text-slate-500 text-sm mt-1">
+                        <p className="text-stone-500 text-sm mt-1">
                           {exp.location}
                         </p>
                       </div>
@@ -303,7 +345,7 @@ export function Experience() {
                       {exp.description.map((item, i) => (
                         <li
                           key={i}
-                          className="text-slate-400 text-sm leading-relaxed flex"
+                          className="text-stone-600 text-sm leading-relaxed flex"
                         >
                           <span className="text-primary-500 mr-2 mt-1">•</span>
                           <span>{item}</span>
@@ -312,11 +354,11 @@ export function Experience() {
                     </ul>
 
                     {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-stone-200">
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2 py-1 bg-[#0f172a] text-slate-400 text-xs rounded-md border border-white/5"
+                          className="px-2 py-1 bg-stone-100 text-stone-600 text-xs rounded-md border border-stone-200"
                         >
                           {tech}
                         </span>
@@ -327,6 +369,7 @@ export function Experience() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>

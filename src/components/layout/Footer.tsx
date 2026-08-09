@@ -51,9 +51,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative z-10 bg-[#0a0f1e] text-slate-300 overflow-hidden border-t border-white/5">
+    <footer className="relative z-10 bg-stone-50 text-stone-600 overflow-hidden border-t border-stone-200">
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark-950 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-stone-100 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
@@ -70,8 +70,8 @@ export function Footer() {
                 <span className="text-white font-bold text-xl">CK</span>
               </div>
               <div>
-                <h3 className="font-display font-bold text-xl">Chirag Kumar</h3>
-                <p className="text-slate-500 text-sm">SDE 2 @ Junglee Games</p>
+                <h3 className="font-display font-bold text-xl text-accent-800">Chirag Kumar</h3>
+                <p className="text-stone-600 text-sm">SDE 2 @ Junglee Games</p>
               </div>
             </motion.div>
 
@@ -80,7 +80,7 @@ export function Footer() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-slate-500 text-sm leading-relaxed max-w-xs"
+              className="text-stone-600 text-sm leading-relaxed max-w-xs"
             >
               Building scalable systems and delightful user experiences.
               Passionate about clean code, performance optimization, and
@@ -101,7 +101,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-[#1e293b] flex items-center justify-center text-slate-400 hover:text-sky-400 hover:bg-[#273549] transition-all duration-300"
+                  className="w-10 h-10 rounded-lg bg-stone-100 flex items-center justify-center text-stone-600 hover:text-primary-600 hover:bg-stone-200 transition-all duration-300"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.name}
@@ -118,7 +118,7 @@ export function Footer() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-display font-semibold text-lg mb-4"
+              className="font-display font-semibold text-lg mb-4 text-accent-800"
             >
               Quick Links
             </motion.h4>
@@ -137,7 +137,7 @@ export function Footer() {
                       e.preventDefault();
                       handleNavClick(link.href);
                     }}
-                    className="text-slate-500 hover:text-sky-400 text-sm transition-colors inline-flex items-center gap-2 group"
+                    className="text-stone-600 hover:text-primary-600 text-sm transition-colors inline-flex items-center gap-2 group"
                   >
                     <span className="w-0 h-0.5 bg-primary-500 group-hover:w-4 transition-all duration-300" />
                     {link.name}
@@ -153,7 +153,7 @@ export function Footer() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-display font-semibold text-lg mb-4"
+              className="font-display font-semibold text-lg mb-4 text-accent-800"
             >
               Get in Touch
             </motion.h4>
@@ -166,19 +166,19 @@ export function Footer() {
             >
               <a
                 href="mailto:chiragkrkashyap@gmail.com"
-                className="flex items-center gap-3 text-slate-500 hover:text-sky-400 transition-colors text-sm"
+                className="flex items-center gap-3 text-stone-600 hover:text-primary-600 transition-colors text-sm"
               >
                 <EmailIcon className="w-5 h-5" />
                 chiragkrkashyap@gmail.com
               </a>
               <a
                 href="tel:+917323058176"
-                className="flex items-center gap-3 text-slate-500 hover:text-sky-400 transition-colors text-sm"
+                className="flex items-center gap-3 text-stone-600 hover:text-primary-600 transition-colors text-sm"
               >
                 <PhoneIcon className="w-5 h-5" />
                 +91 7323058176
               </a>
-              <p className="flex items-center gap-3 text-slate-500 text-sm">
+              <p className="flex items-center gap-3 text-stone-600 text-sm">
                 <LocationIcon className="w-5 h-5" />
                 Gurugram, India
               </p>
@@ -191,9 +191,9 @@ export function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4"
+          className="py-6 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4"
         >
-          <p className="text-slate-600 text-sm">
+          <p className="text-stone-500 text-sm">
             &copy; {currentYear} Chirag Kumar. All rights reserved.
           </p>
         </motion.div>

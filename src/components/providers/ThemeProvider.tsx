@@ -2,12 +2,12 @@
 
 import { createContext, useContext, ReactNode } from "react";
 
-// Portfolio is dark-only — theme is always dark
-const ThemeContext = createContext({ theme: "dark" as const });
+// Portfolio is light-only — theme is always light
+const ThemeContext = createContext({ theme: "light" as const });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
-    <ThemeContext.Provider value={{ theme: "dark" }}>
+    <ThemeContext.Provider value={{ theme: "light" }}>
       {children}
     </ThemeContext.Provider>
   );

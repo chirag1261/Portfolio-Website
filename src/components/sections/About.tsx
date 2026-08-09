@@ -7,7 +7,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const highlights = [
-  { icon: "🎮", label: "Gaming Industry", value: "Junglee Games" },
+  {
+    icon: "🎮",
+    logo: "/logos/junglee-games.png",
+    label: "Gaming Industry",
+    value: "Junglee Games",
+  },
   { icon: "👥", label: "Users Impacted", value: "800K+" },
   { icon: "🛠️", label: "RBAC Permissions", value: "20+" },
   { icon: "💳", label: "Payment Gateway", value: "Worldpay" },
@@ -88,7 +93,7 @@ export function About() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 animate-spin-slow opacity-20" />
 
               {/* Avatar container */}
-              <div className="absolute inset-2 rounded-full bg-[#1e293b] overflow-hidden border-4 border-[#334155] shadow-2xl">
+              <div className="absolute inset-2 rounded-full bg-white overflow-hidden border-4 border-stone-200">
                 <Image
                   src="/chirag.webp"
                   alt="Chirag Kumar"
@@ -106,7 +111,7 @@ export function About() {
                   duration: 3,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-4 -right-4 bg-[#1e293b] rounded-xl p-3 shadow-lg border border-white/10"
+                className="absolute -top-4 -right-4 bg-white rounded-xl p-3 border border-stone-200"
               >
                 <span className="text-2xl">⚡</span>
               </motion.div>
@@ -118,7 +123,7 @@ export function About() {
                   duration: 3.5,
                   ease: "easeInOut",
                 }}
-                className="absolute -bottom-4 -left-4 bg-[#1e293b] rounded-xl p-3 shadow-lg border border-white/10"
+                className="absolute -bottom-4 -left-4 bg-white rounded-xl p-3 border border-stone-200"
               >
                 <span className="text-2xl">🚀</span>
               </motion.div>
@@ -128,36 +133,36 @@ export function About() {
           {/* Right: Content */}
           <div ref={contentRef} className="space-y-6">
             <div className="about-animate">
-              <span className="text-primary-500 font-medium text-sm uppercase tracking-wider px-2 py-1 -mx-2 rounded transition-all duration-300 hover:bg-sky-500/[0.08]">
+              <span className="text-primary-500 font-medium text-sm uppercase tracking-wider px-2 py-1 -mx-2 rounded transition-all duration-300 hover:bg-primary-500/[0.08]">
                 About Me
               </span>
-              <h2 className="section-heading mt-2 text-slate-100 px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-white/[0.05]">
-                Passionate Developer,{" "}
-                <span className="gradient-text">Problem Solver</span>
+              <h2 className="section-heading mt-2 text-accent-800 px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-stone-100">
+                Full Stack Engineer,{" "}
+                <span className="gradient-text">Systems Thinker</span>
               </h2>
             </div>
 
-            <div className="about-animate space-y-4 text-slate-400 leading-relaxed">
-              <p className="px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-white/[0.3] hover:text-slate-300">
+            <div className="about-animate space-y-4 text-stone-600 leading-relaxed">
+              <p className="px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-stone-100 hover:text-stone-700">
                 I&apos;m a{" "}
-                <strong className="text-slate-100">
+                <strong className="text-accent-800">
                   Software Development Engineer 2
                 </strong>{" "}
-                at <strong className="text-primary-500">Junglee Games</strong>,
+                at <strong className="text-primary-600">Junglee Games</strong>,
                 where I build scalable systems that power gaming experiences for
                 over 800,000 users.
               </p>
-              <p className="px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-white/[0.06] hover:text-slate-300">
+              <p className="px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-stone-100 hover:text-stone-700">
                 With{" "}
-                <strong className="text-slate-100">
-                  2+ years of professional experience
+                <strong className="text-accent-800">
+                  2.5+ years of professional experience
                 </strong>
                 , I specialize in developing gamification features, payment
                 integrations, and robust backend architectures. My work has
                 directly contributed to improved user engagement, retention
                 KPIs, and revenue optimization.
               </p>
-              <p className="px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-white/[0.06] hover:text-slate-300">
+              <p className="px-3 py-2 -mx-3 rounded-lg transition-all duration-300 hover:bg-stone-100 hover:text-stone-700">
                 I&apos;m passionate about writing clean, maintainable code and
                 staying up-to-date with the latest technologies. When I&apos;m
                 not coding, you&apos;ll find me exploring new frameworks or
@@ -167,12 +172,12 @@ export function About() {
 
             {/* Tech Stack */}
             <div className="about-animate">
-              <p className="text-sm font-medium text-slate-500 mb-3 px-2 py-1 -mx-2 rounded transition-all duration-300 hover:bg-white/[0.05] hover:text-slate-400 inline-block">
+              <p className="text-sm font-medium text-stone-600 mb-3 px-2 py-1 -mx-2 rounded transition-all duration-300 hover:bg-stone-100 hover:text-stone-700 inline-block">
                 Tech I work with:
               </p>
               <div className="flex flex-wrap gap-2">
                 {techStack.map((tech) => (
-                  <span key={tech} className="skill-badge text-slate-200">
+                  <span key={tech} className="skill-badge text-stone-700">
                     {tech}
                   </span>
                 ))}
@@ -184,13 +189,23 @@ export function About() {
               {highlights.map((item) => (
                 <div
                   key={item.label}
-                  className="p-4 bg-[#1e293b] rounded-xl border border-white/10"
+                  className="p-4 bg-white rounded-xl border border-stone-200"
                 >
-                  <span className="text-2xl">{item.icon}</span>
-                  <p className="text-lg font-bold text-slate-100 mt-2">
+                  {item.logo ? (
+                    <Image
+                      src={item.logo}
+                      alt={item.value}
+                      width={32}
+                      height={32}
+                      className="h-8 w-8 object-contain"
+                    />
+                  ) : (
+                    <span className="text-2xl">{item.icon}</span>
+                  )}
+                  <p className="text-lg font-bold text-accent-800 mt-2">
                     {item.value}
                   </p>
-                  <p className="text-sm text-slate-500">{item.label}</p>
+                  <p className="text-sm text-stone-600">{item.label}</p>
                 </div>
               ))}
             </div>

@@ -94,7 +94,7 @@ const TECH_LOGOS: {
   },
   {
     name: "Next.js",
-    color: "#ffffff",
+    color: "#000000",
     viewBox: "0 0 24 24",
     paths: [
       "M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727zM16.8 7.2h-1.6v9.6h1.6z",
@@ -111,7 +111,7 @@ const TECH_LOGOS: {
   },
   {
     name: "Express",
-    color: "#ffffff",
+    color: "#000000",
     viewBox: "0 0 24 24",
     paths: [
       "M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.511 4.86 3.557-4.86a1.482 1.482 0 011.865-.617L16.72 11.62l4.994 6.968zM.001 11.59L0 12.34l3.188 4.277a1.534 1.534 0 001.889.72L0 11.59zm8.415-6.478L4.03 11.59h8.415L8.415 5.112z",
@@ -289,12 +289,10 @@ interface Logo {
   baseVy: number;
   size: number;
   opacity: number;
-  rotation: number;
-  rotSpeed: number;
   logoIdx: number;
 }
 
-const LOGO_COUNT = 160;
+const LOGO_COUNT = 100;
 const REPEL_RADIUS = 150;
 const REPEL_STRENGTH = 8;
 
@@ -320,8 +318,6 @@ export function FloatingLogos() {
         baseVy: Math.sin(angle) * speed,
         size: 20 + Math.random() * 22,
         opacity: 0.12 + Math.random() * 0.18,
-        rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.005,
         logoIdx: Math.floor(Math.random() * TECH_LOGOS.length),
       });
     }
@@ -332,6 +328,19 @@ export function FloatingLogos() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
+
+    // Path2D parsing is expensive — compile each logo's paths once (client
+    // only, Path2D doesn't exist during SSR) and reuse them every frame
+    // instead of re-parsing the SVG path data on every draw call.
+    const compiledLogos = TECH_LOGOS.map((tech) => {
+      const vbParts = tech.viewBox.split(" ").map(Number);
+      return {
+        color: tech.color,
+        vbW: vbParts[2] || 24,
+        vbH: vbParts[3] || 24,
+        paths: tech.paths.map((d) => new Path2D(d)),
+      };
+    });
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -367,6 +376,8 @@ export function FloatingLogos() {
       const scrollY = scrollYRef.current;
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y + scrollY; // mouse in page coords
+      // Read once per frame, not once per logo — scrollHeight forces layout.
+      const pageH = document.documentElement.scrollHeight;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -374,10 +385,8 @@ export function FloatingLogos() {
         // Update position
         logo.x += logo.vx;
         logo.y += logo.vy;
-        logo.rotation += logo.rotSpeed;
 
         // Wrap around
-        const pageH = document.documentElement.scrollHeight;
         if (logo.x < -logo.size) logo.x = w + logo.size;
         if (logo.x > w + logo.size) logo.x = -logo.size;
         if (logo.y < -logo.size) logo.y = pageH + logo.size;
@@ -401,27 +410,21 @@ export function FloatingLogos() {
         const screenY = logo.y - scrollY;
         if (screenY < -logo.size * 2 || screenY > h + logo.size * 2) continue;
 
-        // Draw SVG logo as path
-        const tech = TECH_LOGOS[logo.logoIdx];
+        // Draw SVG logo as path (precompiled — no per-frame parsing)
+        const tech = compiledLogos[logo.logoIdx];
         const s = logo.size;
 
         ctx.save();
         ctx.translate(logo.x, screenY);
-        ctx.rotate(logo.rotation);
         ctx.globalAlpha = logo.opacity;
 
-        // Parse viewBox
-        const vbParts = tech.viewBox.split(" ").map(Number);
-        const vbW = vbParts[2] || 24;
-        const vbH = vbParts[3] || 24;
-        const scale = s / Math.max(vbW, vbH);
+        const scale = s / Math.max(tech.vbW, tech.vbH);
 
         ctx.translate(-s / 2, -s / 2);
         ctx.scale(scale, scale);
 
         ctx.fillStyle = tech.color;
-        for (const d of tech.paths) {
-          const p = new Path2D(d);
+        for (const p of tech.paths) {
           ctx.fill(p);
         }
 

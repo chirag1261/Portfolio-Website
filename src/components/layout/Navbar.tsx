@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSound } from "@/components/providers/SoundContext";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -18,7 +17,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const { isMuted, toggleMute } = useSound();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,11 +59,11 @@ export function Navbar() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-[#0a0f1e]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl"
+            ? "bg-white/90 backdrop-blur-xl border-b border-stone-200"
             : "bg-transparent"
         }`}
       >
-        <nav className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.a
@@ -81,7 +79,7 @@ export function Navbar() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                 <span className="text-white font-bold text-lg">CK</span>
               </div>
-              <span className="hidden sm:block font-display font-bold text-lg text-slate-100">
+              <span className="hidden sm:block font-display font-bold text-lg text-accent-800">
                 Chirag Kumar
               </span>
             </motion.a>
@@ -100,15 +98,15 @@ export function Navbar() {
                     }}
                     className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "text-sky-400 bg-white/[0.06]"
-                        : "text-slate-400 hover:text-slate-100 hover:bg-white/[0.08]"
+                        ? "text-primary-600 bg-primary-50"
+                        : "text-stone-600 hover:text-accent-800 hover:bg-stone-100"
                     }`}
                   >
                     {link.name}
                     {isActive && (
                       <motion.span
                         layoutId="nav-indicator"
-                        className="absolute inset-x-2 -bottom-0.5 h-0.5 bg-gradient-to-r from-sky-400 to-fuchsia-500 rounded-full"
+                        className="absolute inset-x-2 -bottom-0.5 h-0.5 bg-gradient-to-r from-primary-400 to-accent-500 rounded-full"
                       />
                     )}
                   </motion.a>
@@ -118,22 +116,6 @@ export function Navbar() {
 
             {/* Right side actions */}
             <div className="flex items-center gap-3">
-              {/* Sound Toggle */}
-              <motion.button
-                onClick={toggleMute}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-slate-100 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={isMuted ? "Unmute sounds" : "Mute sounds"}
-                title={isMuted ? "Unmute" : "Mute"}
-              >
-                {isMuted ? (
-                  <SoundOffIcon className="w-5 h-5" />
-                ) : (
-                  <SoundOnIcon className="w-5 h-5" />
-                )}
-              </motion.button>
-
               {/* Resume Button */}
               <motion.a
                 href="/resume-pdf/Chirag's Resume.pdf"
@@ -149,7 +131,7 @@ export function Navbar() {
               {/* Mobile Menu Button */}
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-colors"
+                className="md:hidden p-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle menu"
@@ -185,7 +167,7 @@ export function Navbar() {
             />
 
             {/* Menu Panel */}
-            <motion.div className="absolute right-0 top-0 bottom-0 w-72 bg-[#0f172a] border-l border-white/10 shadow-2xl">
+            <motion.div className="absolute right-0 top-0 bottom-0 w-72 bg-white border-l border-stone-200 shadow-2xl">
               <div className="p-6 pt-20">
                 <nav className="flex flex-col gap-2">
                   {navLinks.map((link, index) => (
@@ -199,7 +181,7 @@ export function Navbar() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="px-4 py-3 text-lg font-medium text-slate-200 hover:text-sky-400 hover:bg-white/[0.08] rounded-lg transition-all duration-200"
+                      className="px-4 py-3 text-lg font-medium text-stone-700 hover:text-primary-600 hover:bg-stone-100 rounded-lg transition-all duration-200"
                     >
                       {link.name}
                     </motion.a>
@@ -318,38 +300,3 @@ function DownloadIcon({ className }: { className?: string }) {
   );
 }
 
-function SoundOnIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M15.536 8.464a5 5 0 010 7.072M17.95 6.05a8 8 0 010 11.9M11 5L6 9H2v6h4l5 4V5z"
-      />
-    </svg>
-  );
-}
-
-function SoundOffIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707A1 1 0 0112 5v14a1 1 0 01-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-      />
-    </svg>
-  );
-}

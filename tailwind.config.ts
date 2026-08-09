@@ -10,31 +10,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Warm gold — the highlight/interactive color (links, icons, CTAs).
         primary: {
-          50: "#f0f9ff",
-          100: "#e0f2fe",
-          200: "#bae6fd",
-          300: "#7dd3fc",
-          400: "#38bdf8",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e",
-          950: "#082f49",
+          50: "#fdf6e3",
+          100: "#f9e8bf",
+          200: "#f0d38a",
+          300: "#e4ba52",
+          400: "#d4a017",
+          500: "#b8860b",
+          600: "#96690a",
+          700: "#744f08",
+          800: "#543a06",
+          900: "#362604",
+          950: "#1f1502",
         },
+        // Deep navy — the structural/heading color, paired with gold.
         accent: {
-          50: "#fdf4ff",
-          100: "#fae8ff",
-          200: "#f5d0fe",
-          300: "#f0abfc",
-          400: "#e879f9",
-          500: "#d946ef",
-          600: "#c026d3",
-          700: "#a21caf",
-          800: "#86198f",
-          900: "#701a75",
-          950: "#4a044e",
+          50: "#eef2f6",
+          100: "#d7e0e8",
+          200: "#b0c1d1",
+          300: "#89a2ba",
+          400: "#5c7a9a",
+          500: "#3d5a7a",
+          600: "#2f4762",
+          700: "#243b53",
+          800: "#1e2a3a",
+          900: "#141d29",
+          950: "#0a1219",
         },
         dark: {
           50: "#f8fafc",
@@ -48,6 +50,13 @@ const config: Config = {
           800: "#1e293b",
           900: "#0f172a",
           950: "#020617",
+        },
+        // Shades used for page/card backgrounds that fall outside the
+        // `stone` scale — kept in sync with the CSS vars in globals.css.
+        surface: {
+          DEFAULT: "#f5f5f4", // warm off-white page background
+          hover: "#fafaf9", // card hover background
+          input: "#fafaf9", // form input background
         },
       },
       fontFamily: {
@@ -64,6 +73,7 @@ const config: Config = {
         float: "float 6s ease-in-out infinite",
         pulse: "pulse 2s ease-in-out infinite",
         "spin-slow": "spin 8s linear infinite",
+        "spin-reverse-slow": "spinReverse 11s linear infinite",
         gradient: "gradient 8s ease infinite",
         "text-shimmer": "textShimmer 3s ease-in-out infinite",
       },
@@ -96,6 +106,10 @@ const config: Config = {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        spinReverse: {
+          from: { transform: "rotate(360deg)" },
+          to: { transform: "rotate(0deg)" },
+        },
         textShimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
@@ -106,12 +120,12 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-gradient":
-          "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)",
+          "linear-gradient(135deg, #1e2a3a 0%, #243b53 50%, #1e2a3a 100%)",
       },
       boxShadow: {
-        glow: "0 0 20px rgba(14, 165, 233, 0.3)",
-        "glow-lg": "0 0 40px rgba(14, 165, 233, 0.4)",
-        "glow-accent": "0 0 20px rgba(217, 70, 239, 0.3)",
+        glow: "0 0 20px rgba(184, 134, 11, 0.3)",
+        "glow-lg": "0 0 40px rgba(184, 134, 11, 0.4)",
+        "glow-accent": "0 0 20px rgba(30, 42, 58, 0.3)",
       },
     },
   },

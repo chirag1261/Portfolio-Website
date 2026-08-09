@@ -151,7 +151,8 @@ export function Contact() {
       {/* Background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary-500/5 to-accent-500/5 rounded-full blur-3xl" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -162,7 +163,7 @@ export function Contact() {
           <span className="text-primary-500 font-medium text-sm uppercase tracking-wider">
             Get in Touch
           </span>
-          <h2 className="section-heading mt-2 text-slate-100">
+          <h2 className="section-heading mt-2 text-accent-800">
             Let&apos;s Work <span className="gradient-text">Together</span>
           </h2>
           <p className="section-subheading mx-auto">
@@ -184,14 +185,14 @@ export function Contact() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-4 p-4 bg-[#1e293b] rounded-xl border border-white/10 hover:border-primary-500 transition-all group"
+                  className="flex items-center gap-4 p-4 bg-white rounded-xl border border-stone-200 hover:border-primary-500 transition-all group"
                 >
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
                     <item.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-slate-500 text-sm">{item.label}</p>
-                    <p className="text-slate-100 font-medium">{item.value}</p>
+                    <p className="text-stone-500 text-sm">{item.label}</p>
+                    <p className="text-accent-800 font-medium">{item.value}</p>
                   </div>
                 </motion.a>
               ))}
@@ -199,7 +200,7 @@ export function Contact() {
 
             {/* Social Links */}
             <div className="">
-              <p className="text-slate-500 text-sm mb-4">
+              <p className="text-stone-500 text-sm mb-4">
                 Connect with me on social media
               </p>
               <div ref={socialRef} className="flex gap-3">
@@ -211,7 +212,7 @@ export function Contact() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.15, y: -5, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`social-icon w-12 h-12 rounded-xl bg-[#1e293b] border border-white/10 flex items-center justify-center text-slate-400 ${social.color} hover:border-current transition-colors`}
+                    className={`social-icon w-12 h-12 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 ${social.color} hover:border-current transition-colors`}
                     aria-label={social.name}
                     title={social.name}
                   >
@@ -222,11 +223,11 @@ export function Contact() {
             </div>
 
             {/* CTA Text */}
-            <div className="p-6 bg-gradient-to-br from-primary-900/20 to-accent-900/20 rounded-2xl border border-primary-800/50">
-              <h3 className="text-lg font-bold text-slate-100 mb-2">
+            <div className="p-6 bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl border border-primary-200">
+              <h3 className="text-lg font-bold text-accent-800 mb-2">
                 Open for Opportunities
               </h3>
-              <p className="text-slate-400 text-sm">
+              <p className="text-stone-600 text-sm">
                 I&apos;m currently open to freelance projects, consulting work,
                 and full-time opportunities. Let&apos;s create something amazing
                 together!
@@ -243,13 +244,13 @@ export function Contact() {
           >
             <form
               onSubmit={handleSubmit}
-              className="p-6 sm:p-8 bg-[#1e293b] rounded-2xl border border-white/10 shadow-lg"
+              className="p-6 sm:p-8 bg-white rounded-2xl border border-stone-200"
             >
               <div className="grid sm:grid-cols-2 gap-5 mb-5">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-slate-300 mb-2"
+                    className="block text-sm font-medium text-stone-700 mb-2"
                   >
                     Your Name
                   </label>
@@ -260,14 +261,14 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#162032] border border-white/10 rounded-lg text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-surface-input border border-stone-300 rounded-lg text-accent-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-slate-300 mb-2"
+                    className="block text-sm font-medium text-stone-700 mb-2"
                   >
                     Your Email
                   </label>
@@ -278,7 +279,7 @@ export function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#162032] border border-white/10 rounded-lg text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-surface-input border border-stone-300 rounded-lg text-accent-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -287,7 +288,7 @@ export function Contact() {
               <div className="mb-5">
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium text-stone-700 mb-2"
                 >
                   Subject
                 </label>
@@ -298,7 +299,7 @@ export function Contact() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-[#162032] border border-white/10 rounded-lg text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-surface-input border border-stone-300 rounded-lg text-accent-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                   placeholder="Project Discussion"
                 />
               </div>
@@ -306,7 +307,7 @@ export function Contact() {
               <div className="mb-6">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-sm font-medium text-stone-700 mb-2"
                 >
                   Message
                 </label>
@@ -317,7 +318,7 @@ export function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-[#162032] border border-white/10 rounded-lg text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 bg-surface-input border border-stone-300 rounded-lg text-accent-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -364,6 +365,7 @@ export function Contact() {
               )}
             </form>
           </motion.div>
+        </div>
         </div>
       </div>
     </section>

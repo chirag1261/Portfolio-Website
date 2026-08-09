@@ -59,17 +59,24 @@ const education: EducationItem[] = [
 const achievements: Achievement[] = [
   {
     id: 1,
-    title: "Top Rookie Award",
+    title: "Top Rookie, Spot & Troubleshooter Awards",
     description:
-      "Awarded for outstanding performance and contribution within the first 6 months at Junglee Games",
+      "Recognized for outstanding performance, quick issue resolution, and impact within the first 6 months at Junglee Games",
     icon: "🏆",
   },
   {
     id: 2,
     title: "IBM Hackathon Runner-up",
     description:
-      "Secured runner-up position in IBM Hackathon 2020 organized by Kristu Jayanti College",
+      "Runner-up in IBM Hackathon 2020; demonstrated strong problem-solving and rapid prototyping under pressure",
     icon: "🥈",
+  },
+  {
+    id: 3,
+    title: "Competitive Programming",
+    description:
+      "Solved 800+ problems on LeetCode and GeeksForGeeks; strong in DSA and OOP",
+    icon: "💻",
   },
 ];
 
@@ -95,7 +102,8 @@ export function Education() {
       <div className="absolute top-0 right-0 w-80 h-80 bg-primary-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent-500/5 rounded-full blur-3xl" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -106,7 +114,7 @@ export function Education() {
           <span className="text-primary-500 font-medium text-sm uppercase tracking-wider">
             Background
           </span>
-          <h2 className="section-heading mt-2 text-slate-100">
+          <h2 className="section-heading mt-2 text-accent-800">
             Education & <span className="gradient-text">Achievements</span>
           </h2>
           <p className="section-subheading mx-auto">
@@ -117,7 +125,7 @@ export function Education() {
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Education */}
           <div>
-            <h3 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-accent-800 mb-6 flex items-center gap-3">
               <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white">
                 🎓
               </span>
@@ -133,7 +141,7 @@ export function Education() {
                   viewport={{ once: true }}
                   transition={{ delay: edu.id * 0.1, duration: 0.5 }}
                   whileHover={{ x: 5 }}
-                  className="edu-card card bg-[#1e293b] border-l-4 border-primary-500"
+                  className="edu-card card border-l-4 border-primary-500"
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-16 h-16 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden p-1">
@@ -147,19 +155,19 @@ export function Education() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-slate-100 text-lg">
+                      <h4 className="font-bold text-accent-800 text-lg">
                         {edu.degree}
                       </h4>
-                      <p className="text-primary-500 font-medium">
+                      <p className="text-primary-600 font-medium">
                         {edu.institution}
                       </p>
-                      <p className="text-slate-500 text-sm mt-0.5">
+                      <p className="text-stone-500 text-sm mt-0.5">
                         {edu.status}
                       </p>
                       <div className="flex flex-wrap items-center gap-3 mt-2 text-sm">
-                        <span className="text-slate-500">{edu.period}</span>
-                        <span className="w-1 h-1 rounded-full bg-slate-600" />
-                        <span className="px-2 py-0.5 bg-green-900/30 text-green-400 rounded font-medium">
+                        <span className="text-stone-500">{edu.period}</span>
+                        <span className="w-1 h-1 rounded-full bg-stone-400" />
+                        <span className="px-2 py-0.5 bg-green-50 text-green-700 rounded font-medium">
                           {edu.grade}
                         </span>
                       </div>
@@ -171,7 +179,7 @@ export function Education() {
 
             {/* Certifications */}
             <div className="mt-10">
-              <h3 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-3">
+              <h3 className="text-xl font-bold text-accent-800 mb-6 flex items-center gap-3">
                 <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white">
                   📜
                 </span>
@@ -186,7 +194,7 @@ export function Education() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
-                    className="px-4 py-2 bg-[#1e293b] text-slate-300 rounded-lg text-sm font-medium border border-white/10 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-default"
+                    className="px-4 py-2 bg-white text-stone-700 rounded-lg text-sm font-medium border border-stone-200 hover:border-primary-500 hover:text-primary-600 transition-colors cursor-default"
                   >
                     {cert}
                   </motion.span>
@@ -197,7 +205,7 @@ export function Education() {
 
           {/* Achievements */}
           <div>
-            <h3 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-accent-800 mb-6 flex items-center gap-3">
               <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center text-white">
                 🏆
               </span>
@@ -215,14 +223,14 @@ export function Education() {
                   whileHover={{ scale: 1.02 }}
                   className="edu-card"
                 >
-                  <div className="card bg-gradient-to-br from-primary-900/20 to-accent-900/20 border border-primary-800/50">
+                  <div className="card bg-gradient-to-br from-primary-50 to-accent-50 border border-primary-200">
                     <div className="flex items-start gap-4">
                       <span className="text-5xl">{achievement.icon}</span>
                       <div>
-                        <h4 className="font-bold text-slate-100 text-lg">
+                        <h4 className="font-bold text-accent-800 text-lg">
                           {achievement.title}
                         </h4>
-                        <p className="text-slate-400 mt-1">
+                        <p className="text-stone-600 mt-1">
                           {achievement.description}
                         </p>
                       </div>
@@ -246,17 +254,18 @@ export function Education() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-center p-4 bg-[#1e293b] rounded-xl border border-white/10"
+                  className="text-center p-4 bg-white rounded-xl border border-stone-200"
                 >
                   <span className="text-2xl">{stat.icon}</span>
                   <p className="text-2xl font-bold gradient-text mt-2">
                     {stat.value}
                   </p>
-                  <p className="text-slate-400 text-sm">{stat.label}</p>
+                  <p className="text-stone-600 text-sm">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

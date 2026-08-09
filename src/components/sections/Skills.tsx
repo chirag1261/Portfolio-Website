@@ -126,6 +126,12 @@ const skills: Skill[] = [
     category: "Database",
     url: "https://www.mysql.com",
   },
+  {
+    name: "PostgreSQL",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    category: "Database",
+    url: "https://www.postgresql.org",
+  },
 
   // Cloud & DevOps
   {
@@ -254,7 +260,7 @@ export function Skills() {
           <span className="text-primary-500 font-medium text-sm uppercase tracking-wider">
             My Skills
           </span>
-          <h2 className="section-heading mt-2 text-slate-100">
+          <h2 className="section-heading mt-2 text-accent-800">
             Technologies I <span className="gradient-text">Work With</span>
           </h2>
           <p className="section-subheading mx-auto">
@@ -267,7 +273,7 @@ export function Skills() {
         <div className="space-y-10">
           {categories.map((category) => (
             <div key={category}>
-              <h3 className="text-lg font-semibold text-slate-300 mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-stone-700 mb-4 flex items-center gap-2">
                 <span className="w-8 h-1 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full" />
                 {category}
               </h3>
@@ -295,7 +301,7 @@ export function Skills() {
                           className="w-8 h-8 mx-auto mb-2 group-hover:scale-110 transition-transform"
                           loading="lazy"
                         />
-                        <p className="text-sm font-medium text-slate-300">
+                        <p className="text-sm font-medium text-stone-700">
                           {skill.name}
                         </p>
                       </div>
@@ -311,15 +317,20 @@ export function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 p-6 bg-[#1e293b] rounded-2xl border border-white/10"
+          className="mt-12 p-6 bg-white rounded-2xl border border-stone-200"
         >
-          <h3 className="text-lg font-semibold text-slate-100 mb-4">
+          <h3 className="text-lg font-semibold text-accent-800 mb-4">
             Other Competencies
           </h3>
           <div className="flex flex-wrap gap-3">
             {[
               "Object-Oriented Programming",
               "Low Level Design",
+              "Clean Architecture",
+              "Feature-Driven Architecture",
+              "Design Patterns",
+              "Distributed Systems",
+              "RBAC",
               "Problem Solving",
               "Data Structures & Algorithms",
               "SDLC",
@@ -328,10 +339,14 @@ export function Skills() {
               "RESTful Architecture",
               "Microservices",
               "Code Review",
+              "GitHub Copilot",
+              "Agentic AI Workflows",
+              "Lighthouse CI",
+              "Puppeteer",
             ].map((skill) => (
               <span
                 key={skill}
-                className="px-4 py-2 bg-[#0f172a] text-slate-300 rounded-lg text-sm font-medium hover:bg-sky-900/30 hover:text-sky-400 transition-colors cursor-default border border-white/5"
+                className="px-4 py-2 bg-stone-100 text-stone-700 rounded-lg text-sm font-medium hover:bg-primary-50 hover:text-primary-700 transition-colors cursor-default border border-stone-200"
               >
                 {skill}
               </span>

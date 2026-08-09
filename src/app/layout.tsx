@@ -5,17 +5,6 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { SoundProvider } from "@/components/providers/SoundContext";
-import { PageLoader } from "@/components/layout/PageLoader";
-import dynamic from "next/dynamic";
-
-const AnimatedFavicon = dynamic(
-  () =>
-    import("@/components/layout/AnimatedFavicon").then(
-      (m) => m.AnimatedFavicon,
-    ),
-  { ssr: false },
-);
 
 // Font configurations
 const inter = Inter({
@@ -40,14 +29,15 @@ const firaCode = Fira_Code({
 export const metadata: Metadata = {
   metadataBase: new URL("https://chiragkumar.dev"),
   title: {
-    default: "Chirag Kumar | SDE 2 at Junglee Games | Full Stack Developer",
+    default: "Chirag Kumar | SDE 2 at Junglee Games | Full Stack Engineer",
     template: "%s | Chirag Kumar",
   },
   description:
-    "Portfolio of Chirag Kumar - SDE 2 at Junglee Games with 2+ years of experience building scalable systems, payment integrations, and gamification features impacting 800K+ users. Expert in Node.js, React.js, Next.js, and TypeScript.",
+    "Portfolio of Chirag Kumar - SDE 2 at Junglee Games with 2.5+ years of experience building scalable systems, payment integrations, and gamification features impacting 800K+ users. Expert in Node.js, React.js, Next.js, and TypeScript.",
   keywords: [
     "Chirag Kumar",
-    "Full Stack Developer",
+    "Full Stack Engineer",
+    "Frontend Engineer",
     "SDE 2",
     "Junglee Games",
     "React.js",
@@ -80,7 +70,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://chiragkumar.dev",
     siteName: "Chirag Kumar Portfolio",
-    title: "Chirag Kumar | SDE 2 at Junglee Games | Full Stack Developer",
+    title: "Chirag Kumar | SDE 2 at Junglee Games | Full Stack Engineer",
     description:
       "Portfolio of Chirag Kumar - SDE 2 at Junglee Games building scalable systems for 800K+ users. Expert in Node.js, React.js, Next.js, TypeScript.",
     images: [
@@ -88,7 +78,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Chirag Kumar - Full Stack Developer",
+        alt: "Chirag Kumar - Full Stack Engineer",
       },
     ],
   },
@@ -96,7 +86,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Chirag Kumar | SDE 2 at Junglee Games",
     description:
-      "Full Stack Developer building scalable systems for 800K+ users",
+      "Full Stack Engineer building scalable systems for 800K+ users",
     creator: "@ChiragKrKashya1",
     images: ["/og-image.png"],
   },
@@ -109,10 +99,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
-  ],
+  themeColor: "#f8fafc",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -130,7 +117,7 @@ const jsonLd = {
     "https://github.com/chirag1261",
     "https://twitter.com/ChiragKrKashya1",
   ],
-  jobTitle: "SDE 2",
+  jobTitle: "SDE 2 — Full Stack Engineer",
   worksFor: {
     "@type": "Organization",
     name: "Junglee Games",
@@ -151,8 +138,11 @@ const jsonLd = {
     "React.js",
     "Next.js",
     "Node.js",
+    "Nest.js",
     "MongoDB",
     "AWS",
+    "Distributed Systems",
+    "System Design",
   ],
 };
 
@@ -162,9 +152,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <script
@@ -176,17 +178,13 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} ${firaCode.variable} antialiased`}
       >
         <ThemeProvider>
-          <SoundProvider>
-            <AnimatedFavicon />
-            <PageLoader />
-            <SmoothScroll>
-              <div className="relative min-h-screen">
-                <Navbar />
-                <main>{children}</main>
-                <Footer />
-              </div>
-            </SmoothScroll>
-          </SoundProvider>
+          <SmoothScroll>
+            <div className="relative min-h-screen">
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </div>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

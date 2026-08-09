@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -73,8 +74,9 @@ export function Hero() {
     window.addEventListener("mousemove", handleMouseMove);
 
     const ctx = gsap.context(() => {
-      // Master timeline — cinematic entrance
-      const master = gsap.timeline({ delay: 0.3 });
+      // Master timeline — cinematic entrance (sped up via timeScale so all
+      // the phase overlaps below stay proportionally correct)
+      const master = gsap.timeline({ delay: 0.3 }).timeScale(1.8);
 
       // Phase 1: Overlay wipe (split curtain)
       master.to(".hero-overlay-left", {
@@ -132,16 +134,27 @@ export function Hero() {
         "-=0.9",
       );
 
-      // Phase 5: Role text — fast stagger
+      // Phase 4.5: Decorative avatar pops in alongside the name
       master.from(
-        ".hero-role .role-char",
+        ".hero-avatar-deco",
         {
           opacity: 0,
-          y: 20,
-          rotateX: -90,
+          scale: 0.7,
+          y: 30,
+          duration: 0.9,
+          ease: "back.out(1.4)",
+        },
+        "-=0.5",
+      );
+
+      // Phase 5: Byline fades in
+      master.from(
+        ".hero-byline",
+        {
+          opacity: 0,
+          y: 15,
           duration: 0.5,
-          stagger: 0.015,
-          ease: "back.out(2)",
+          ease: "power2.out",
         },
         "-=0.8",
       );
@@ -261,11 +274,11 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative z-10 min-h-screen flex items-center overflow-hidden bg-[#080d1a]/80"
+      className="relative z-10 min-h-screen flex items-center overflow-hidden bg-surface"
     >
       {/* ── Opening wipe overlays ── */}
-      <div className="hero-overlay-left fixed inset-0 z-50 bg-[#0a0f1e] pointer-events-none" />
-      <div className="hero-overlay-right fixed inset-0 z-50 bg-[#0ea5e9] pointer-events-none" />
+      <div className="hero-overlay-left fixed inset-0 z-50 bg-surface pointer-events-none" />
+      <div className="hero-overlay-right fixed inset-0 z-50 bg-primary-500 pointer-events-none" />
 
       {/* ── Custom cursor (desktop) ── */}
       <div
@@ -286,7 +299,7 @@ export function Hero() {
             key={i}
             className="hero-vline w-px h-full origin-top"
             style={{
-              background: `linear-gradient(180deg, transparent 0%, rgba(14,165,233,${0.06 - i * 0.008}) 30%, rgba(217,70,239,${0.04 - i * 0.005}) 70%, transparent 100%)`,
+              background: `linear-gradient(180deg, transparent 0%, rgba(184,134,11,${0.06 - i * 0.008}) 30%, rgba(30,42,58,${0.04 - i * 0.005}) 70%, transparent 100%)`,
             }}
           />
         ))}
@@ -297,95 +310,98 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            "linear-gradient(rgba(15,23,42,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.5) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
         }}
       />
 
       {/* ── Glow accents ── */}
-      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-sky-500/[0.04] rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-fuchsia-500/[0.03] rounded-full blur-[160px] pointer-events-none" />
-      <div className="hero-glow-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sky-500/[0.02] rounded-full blur-[200px] pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-primary-500/[0.04] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent-500/[0.03] rounded-full blur-[160px] pointer-events-none" />
+      <div className="hero-glow-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/[0.02] rounded-full blur-[200px] pointer-events-none" />
 
       {/* ── Main content ── */}
       <div className="hero-fade-wrap relative z-10 w-full">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           {/* Badge */}
-          <div className="hero-badge-wrap mb-8">
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/10 bg-white/[0.035] backdrop-blur-sm">
+          <div className="hero-badge-wrap mb-6">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-stone-200 bg-white/80 backdrop-blur-sm">
               <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
-              <span className="text-sm text-slate-400 font-mono tracking-wide">
+              <span className="text-sm text-stone-600 font-mono tracking-wide">
                 Available for opportunities
               </span>
             </div>
           </div>
 
-          {/* ── Name block (cinematic masked reveal + magnetic) ── */}
+          {/* ── Byline — name, role, timeframe (editorial-style intro line) ── */}
+          <div className="hero-byline flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-8 font-mono text-xs sm:text-sm uppercase tracking-[0.15em]">
+            <span className="text-accent-800 font-semibold">
+              Chirag Kumar
+            </span>
+            <span className="text-stone-300">/</span>
+            <span className="inline-flex items-center gap-1.5 text-stone-500">
+              <Image
+                src="/logos/junglee-games.png"
+                alt="Junglee Games"
+                width={16}
+                height={16}
+                className="h-4 w-4 object-contain"
+              />
+              Junglee Games — Present
+            </span>
+          </div>
+
+          {/* ── Giant editorial heading (cinematic masked reveal + magnetic) ── */}
           <div ref={nameRef} className="hero-name-block relative mb-6">
-            {/* CHIRAG */}
+            {/* FULL STACK */}
             <div className="hero-first overflow-hidden">
               <div className="flex">
-                {"CHIRAG".split("").map((ch, i) => (
+                {"FULL STACK".split("").map((ch, i) => (
                   <span
                     key={i}
-                    className="char-mask magnetic-letter inline-block font-display text-[clamp(4rem,12vw,9rem)] font-black text-white leading-[0.9] tracking-[-0.03em] will-change-transform"
+                    className="char-mask magnetic-letter inline-block font-display text-[clamp(2.75rem,8vw,7rem)] font-black text-accent-800 leading-[0.95] tracking-[-0.02em] will-change-transform"
                   >
-                    {ch}
+                    {ch === " " ? " " : ch}
                   </span>
                 ))}
               </div>
             </div>
 
             {/* Horizontal divider (animated line-draw) */}
-            <div className="hero-divider origin-left h-px w-full bg-gradient-to-r from-sky-500/60 via-fuchsia-500/40 to-transparent my-3" />
+            <div className="hero-divider origin-left h-px w-full bg-gradient-to-r from-primary-500/60 via-accent-500/40 to-transparent my-3" />
 
-            {/* KUMAR */}
+            {/* — ENGINEER */}
             <div className="hero-last overflow-hidden">
               <div className="flex">
-                {"KUMAR".split("").map((ch, i) => (
+                {"— ENGINEER".split("").map((ch, i) => (
                   <span
                     key={i}
-                    className="char-mask magnetic-letter inline-block font-display text-[clamp(4rem,12vw,9rem)] font-black leading-[0.9] tracking-[-0.03em] will-change-transform"
+                    className="char-mask magnetic-letter inline-block font-display text-[clamp(2.75rem,8vw,7rem)] font-black leading-[0.95] tracking-[-0.02em] will-change-transform"
                     style={{
                       background:
-                        "linear-gradient(90deg, #38bdf8 0%, #a855f7 55%, #ec4899 100%)",
+                        "linear-gradient(90deg, #d4a017 0%, #b8860b 55%, #1e2a3a 100%)",
                       WebkitBackgroundClip: "text",
                       backgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
                   >
-                    {ch}
+                    {ch === " " ? " " : ch}
                   </span>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* ── Role line ── */}
-          <div className="hero-role mb-8">
-            <p className="font-display text-[clamp(1.1rem,2.5vw,1.6rem)] font-semibold tracking-[0.2em] text-sky-400/50 uppercase">
-              {"Full Stack Developer".split("").map((ch, ci) => (
-                <span
-                  key={ci}
-                  className="role-char inline-block"
-                  style={{ transformOrigin: "bottom center" }}
-                >
-                  {ch === " " ? "\u00A0" : ch}
-                </span>
-              ))}
-            </p>
-          </div>
-
           {/* ── Meta block: desc + CTAs + stats ── */}
           <div className="hero-meta-block max-w-2xl space-y-7">
             {/* Description */}
-            <p className="hero-desc text-slate-400 text-base sm:text-lg leading-relaxed">
+            <p className="hero-desc text-stone-600 text-base sm:text-lg leading-relaxed">
               Building scalable systems &amp; gamification features impacting{" "}
-              <span className="text-sky-400 font-semibold">800K+ users</span> at{" "}
-              <span className="text-fuchsia-400 font-semibold">
+              <span className="text-primary-600 font-semibold">800K+ users</span> at{" "}
+              <span className="text-accent-600 font-semibold">
                 Junglee Games
               </span>
               . Passionate about clean code &amp; performance optimization.
@@ -397,16 +413,16 @@ export function Hero() {
                 onClick={() => scrollTo("#projects")}
                 className="hero-cta group relative px-8 py-3.5 text-sm font-semibold text-white overflow-hidden rounded-lg"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-sky-500 to-fuchsia-500 transition-transform duration-300 group-hover:scale-105" />
-                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-fuchsia-500 to-sky-500" />
+                <span className="absolute inset-0 bg-gradient-to-r from-primary-500 to-accent-500 transition-transform duration-300 group-hover:scale-105" />
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-accent-500 to-primary-500" />
                 <span className="relative z-10">View Projects</span>
               </button>
               <a
                 href="/resume-pdf/Chirag's Resume.pdf"
                 download
-                className="hero-cta group inline-flex items-center gap-2.5 px-8 py-3.5 text-sm font-semibold text-slate-300 border border-white/15 rounded-lg hover:border-sky-500/40 hover:text-white transition-all duration-300 overflow-hidden relative"
+                className="hero-cta group inline-flex items-center gap-2.5 px-8 py-3.5 text-sm font-semibold text-stone-700 border border-stone-300 rounded-lg hover:border-primary-500/40 hover:text-primary-700 transition-all duration-300 overflow-hidden relative"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-sky-500/10 to-fuchsia-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <span className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-accent-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 <span className="relative z-10">Download Resume</span>
                 <svg
                   className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5"
@@ -425,9 +441,9 @@ export function Hero() {
             </div>
 
             {/* Stats row with animated counters */}
-            <div className="flex flex-wrap gap-10 pt-6 border-t border-white/5">
+            <div className="flex flex-wrap gap-10 pt-6 border-t border-stone-200">
               {[
-                { value: 2, suffix: "+", label: "Years Exp." },
+                { value: 2.5, suffix: "+", label: "Years Exp.", decimals: 1 },
                 { value: 800, suffix: "K+", label: "Users Impacted" },
                 { value: 15, suffix: "+", label: "Projects" },
                 { value: 20, suffix: "+", label: "Technologies" },
@@ -436,7 +452,7 @@ export function Hero() {
                   <p
                     className="text-3xl font-black tabular-nums"
                     style={{
-                      background: "linear-gradient(135deg, #38bdf8, #d946ef)",
+                      background: "linear-gradient(135deg, #b8860b, #1e2a3a)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -445,10 +461,11 @@ export function Hero() {
                     <AnimatedCounter
                       target={s.value}
                       suffix={s.suffix}
+                      decimals={s.decimals}
                       active={countersReady}
                     />
                   </p>
-                  <p className="text-[10px] text-slate-600 mt-1 uppercase tracking-[0.22em] font-mono">
+                  <p className="text-[10px] text-stone-500 mt-1 uppercase tracking-[0.22em] font-mono">
                     {s.label}
                   </p>
                 </div>
@@ -456,16 +473,47 @@ export function Hero() {
             </div>
           </div>
         </div>
+
+        {/* ── Decorative avatar (fills the empty right side on large screens) ── */}
+        <div className="hero-avatar-deco absolute right-[6%] top-1/2 -translate-y-1/2 z-[2] hidden lg:flex items-center justify-center pointer-events-none">
+          <div className="relative animate-float">
+            {/* Soft glow backdrop */}
+            <div className="absolute inset-0 -m-20 bg-gradient-to-br from-primary-400/25 via-primary-300/10 to-accent-700/20 rounded-full blur-3xl" />
+            {/* Orbit rings — slowly rotate in opposite directions */}
+            <div className="absolute inset-0 -m-10 rounded-full border border-primary-400/25 animate-spin-slow">
+              <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary-500" />
+            </div>
+            <div className="absolute inset-0 -m-16 rounded-full border border-dashed border-accent-400/25 animate-spin-reverse-slow">
+              <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent-600" />
+            </div>
+            {/* Profile photo */}
+            <div
+              className="relative w-[230px] h-[230px] rounded-full overflow-hidden border-4 border-white"
+              style={{
+                filter: "drop-shadow(0 25px 45px rgba(30,42,58,0.18))",
+              }}
+            >
+              <Image
+                src="/chirag-hero.jpg"
+                alt="Chirag Kumar"
+                fill
+                sizes="230px"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* ── Scroll indicator ── */}
       <div className="hero-scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
-        <span className="font-mono text-[10px] text-slate-600 tracking-[0.4em] uppercase">
+        <span className="font-mono text-[10px] text-stone-500 tracking-[0.4em] uppercase">
           Scroll
         </span>
-        <div className="relative w-5 h-8 border border-white/15 rounded-full flex justify-center">
+        <div className="relative w-5 h-8 border border-stone-300 rounded-full flex justify-center">
           <div
-            className="w-0.5 h-2 bg-sky-400/60 rounded-full mt-1.5"
+            className="w-0.5 h-2 bg-primary-400/60 rounded-full mt-1.5"
             style={{ animation: "scrollPulse 2s ease-in-out infinite" }}
           />
         </div>
@@ -479,10 +527,12 @@ function AnimatedCounter({
   target,
   suffix,
   active,
+  decimals = 0,
 }: {
   target: number;
   suffix: string;
   active: boolean;
+  decimals?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const animated = useRef(false);
@@ -494,15 +544,15 @@ function AnimatedCounter({
     const obj = { val: 0 };
     gsap.to(obj, {
       val: target,
-      duration: 2,
+      duration: 1.1,
       ease: "power2.out",
       onUpdate: () => {
         if (ref.current) {
-          ref.current.textContent = Math.round(obj.val) + suffix;
+          ref.current.textContent = obj.val.toFixed(decimals) + suffix;
         }
       },
     });
-  }, [active, target, suffix]);
+  }, [active, target, suffix, decimals]);
 
   return <span ref={ref}>0{suffix}</span>;
 }

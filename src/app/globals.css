@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 /* Lenis smooth scroll */
 html.lenis,
@@ -18,35 +19,35 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* ===== CSS Variables (Dark-only) ===== */
+/* ===== CSS Variables (Light-only, warm off-white / navy / gold) ===== */
 :root {
-  --color-primary: #0ea5e9;
-  --color-primary-dark: #0284c7;
-  --color-accent: #d946ef;
+  --color-primary: #b8860b;
+  --color-primary-dark: #96690a;
+  --color-accent: #1e2a3a;
 
   /* Semantic aliases used throughout CSS */
-  --background: #0a0f1e;
-  --background-secondary: #0f172a;
-  --foreground: #f1f5f9;
-  --foreground-muted: #64748b;
-  --card: #1e293b;
-  --card-hover: #273549;
-  --border: #334155;
+  --background: #f5f5f4;
+  --background-secondary: #ffffff;
+  --foreground: #1e2a3a;
+  --foreground-muted: #78716c;
+  --card: #ffffff;
+  --card-hover: #fafaf9;
+  --border: #e7e5e4;
 
   /* New names */
-  --bg-base: #0a0f1e;
-  --bg-surface: #0f172a;
-  --bg-card: #1e293b;
-  --bg-card-hover: #273549;
-  --bg-input: #162032;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --border-color: #334155;
-  --border-subtle: #1e293b;
+  --bg-base: #f5f5f4;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafaf9;
+  --bg-input: #fafaf9;
+  --text-primary: #1e2a3a;
+  --text-secondary: #57534e;
+  --text-muted: #78716c;
+  --border-color: #e7e5e4;
+  --border-subtle: #f5f5f4;
 
-  --gradient-primary: linear-gradient(135deg, #0ea5e9, #d946ef);
-  --gradient-text: linear-gradient(90deg, #0ea5e9, #d946ef, #0ea5e9);
+  --gradient-primary: linear-gradient(135deg, #b8860b, #1e2a3a);
+  --gradient-text: linear-gradient(90deg, #b8860b, #1e2a3a, #b8860b);
 }
 
 /* ===== Base Styles ===== */
@@ -65,8 +66,8 @@ html {
 }
 
 body {
-  background: #0a0f1e;
-  color: #f1f5f9;
+  background: #f5f5f4;
+  color: #1e2a3a;
   font-family: var(--font-inter), system-ui, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -87,23 +88,18 @@ body {
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .dark .glass {
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.08);
   }
 
   .glow {
-    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
   }
 
   .glow-accent {
-    box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+    box-shadow: 0 0 20px rgba(30, 42, 58, 0.3);
   }
 
   .skill-badge {
@@ -120,7 +116,7 @@ body {
 
   .skill-badge:hover {
     border-color: var(--color-primary);
-    background: rgba(14, 165, 233, 0.1);
+    background: rgba(184, 134, 11, 0.08);
   }
 }
 
@@ -210,8 +206,8 @@ body {
 
   .card:hover {
     background: var(--card-hover);
+    border-color: var(--color-primary);
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   }
 
   /* ===== Button Styles ===== */
@@ -237,7 +233,6 @@ body {
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
   }
 
   .btn-outline {

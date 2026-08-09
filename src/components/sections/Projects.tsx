@@ -186,7 +186,7 @@ export function Projects() {
           <span className="text-primary-500 font-medium text-sm uppercase tracking-wider">
             My Work
           </span>
-          <h2 className="section-heading mt-2 text-slate-100">
+          <h2 className="section-heading mt-2 text-accent-800">
             Featured <span className="gradient-text">Projects</span>
           </h2>
           <p className="section-subheading mx-auto">
@@ -208,8 +208,8 @@ export function Projects() {
               onClick={() => setActiveCategory(category)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === category
-                  ? "bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg"
-                  : "bg-[#1e293b] text-slate-300 hover:bg-[#273549] border border-white/10"
+                  ? "bg-gradient-to-r from-primary-500 to-accent-500 text-white"
+                  : "bg-white text-stone-700 hover:bg-stone-100 border border-stone-200"
               }`}
             >
               {category}
@@ -315,15 +315,15 @@ function TiltCard({ project }: { project: Project }) {
   return (
     <div ref={cardRef} className="relative h-full rounded-2xl">
       {/* Card body */}
-      <div className="group relative h-full flex flex-col bg-[#1e293b] rounded-2xl overflow-hidden border border-white/5">
+      <div className="group relative h-full flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200">
         {/* Project Image/Icon Area */}
-        <div className="relative h-52 bg-gradient-to-br from-primary-500/5 via-[#1e293b] to-accent-500/5 flex items-center justify-center overflow-hidden">
+        <div className="relative h-52 bg-gradient-to-br from-primary-500/5 via-white to-accent-500/5 flex items-center justify-center overflow-hidden">
           {/* Subtle grid background */}
           <div
             className="absolute inset-0 opacity-[0.08]"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(56,189,248,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.3) 1px, transparent 1px)",
+                "linear-gradient(rgba(184,134,11,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(184,134,11,0.3) 1px, transparent 1px)",
               backgroundSize: "40px 40px",
               transform: "perspective(500px) rotateX(50deg) scale(1.8)",
               transformOrigin: "center bottom",
@@ -375,13 +375,13 @@ function TiltCard({ project }: { project: Project }) {
 
           {/* Featured Badge */}
           {project.featured && (
-            <span className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-xs font-bold rounded-full shadow-lg z-30">
+            <span className="absolute top-4 right-4 px-3 py-1 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-xs font-bold rounded-full z-30">
               ★ Featured
             </span>
           )}
 
           {/* Overlay with action buttons */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent flex items-end justify-center p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 pointer-events-none group-hover:pointer-events-auto">
+          <div className="absolute inset-0 bg-gradient-to-t from-dark-900/95 via-dark-900/40 to-transparent flex items-end justify-center p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 pointer-events-none group-hover:pointer-events-auto">
             <div className="flex gap-3">
               <a
                 href={project.github}
@@ -411,29 +411,29 @@ function TiltCard({ project }: { project: Project }) {
 
         {/* Content */}
         <div className="flex-1 p-5 flex flex-col relative">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-400 uppercase tracking-wider mb-2 w-fit">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-600 uppercase tracking-wider mb-2 w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
             {project.category}
           </span>
-          <h3 className="text-lg font-bold text-slate-100 mb-2">
+          <h3 className="text-lg font-bold text-accent-800 mb-2">
             {project.title}
           </h3>
-          <p className="text-slate-400 text-sm mb-4 flex-1 leading-relaxed">
+          <p className="text-stone-600 text-sm mb-4 flex-1 leading-relaxed">
             {project.description}
           </p>
 
           {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+          <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-stone-200">
             {project.technologies.slice(0, 4).map((tech) => (
               <span
                 key={tech}
-                className="px-2.5 py-1 bg-[#0f172a] text-slate-400 text-xs rounded-lg border border-white/5 hover:border-primary-500/30 hover:text-primary-300 transition-colors cursor-default"
+                className="px-2.5 py-1 bg-stone-100 text-stone-600 text-xs rounded-lg border border-stone-200 hover:border-primary-500/40 hover:text-primary-700 transition-colors cursor-default"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 4 && (
-              <span className="px-2.5 py-1 text-slate-500 text-xs">
+              <span className="px-2.5 py-1 text-stone-600 text-xs">
                 +{project.technologies.length - 4}
               </span>
             )}

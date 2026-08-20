@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,6 +12,7 @@ interface Project {
   description: string;
   longDescription: string;
   image: string;
+  screenshot?: string;
   technologies: string[];
   github: string;
   live?: string;
@@ -21,12 +23,35 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: "All-Spark — Event Booking Platform",
+    description:
+      "Multi-event ticketing platform with seat selection, Razorpay payments, and an admin dashboard",
+    longDescription:
+      "A production event booking platform (live at utsavevents.live): admins create multi-category ticketed events with registration windows, banners and FAQs, while attendees pick seats on an interactive auditorium map, pay via Razorpay, and receive a unique QR ticket by email. Includes a full admin dashboard with role-based permissions, real-time seat locking, refunds, OTP-based customer accounts, and an audit trail.",
+    image: "🎟️",
+    screenshot: "/projects/all-spark.png",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "Razorpay",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/chirag1261/all-spark",
+    live: "https://utsavevents.live",
+    category: "Full Stack",
+    featured: true,
+  },
+  {
+    id: 2,
     title: "Study Notion",
     description:
       "Full-fledged Ed-Tech platform for students, instructors, and admins",
     longDescription:
       "A comprehensive MERN-based educational technology platform that enables instructors to showcase their expertise and connect with learners globally. Features include course creation, consumption, rating system, secure payments via RazorPay, and email notifications.",
     image: "📚",
+    screenshot: "/projects/study-notion.png",
     technologies: [
       "React.js",
       "Node.js",
@@ -42,7 +67,7 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: "Shopingooo",
     description: "Complete e-commerce platform with secure payments",
     longDescription:
@@ -62,7 +87,7 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    id: 3,
+    id: 4,
     title: "Book Wagon",
     description: "Desktop application for online book renting",
     longDescription:
@@ -74,12 +99,13 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    id: 4,
+    id: 5,
     title: "Weather App",
     description: "React weather application with 5-day forecast",
     longDescription:
       "A React-based weather application where users can search for any city and view the current weather along with a 5-day forecast. Uses weather API for real-time data.",
     image: "🌤️",
+    screenshot: "/projects/weather-app.jpg",
     technologies: ["React.js", "JavaScript", "CSS", "Weather API"],
     github: "https://github.com/chirag1261/CurrentWeatherApp",
     live: "https://reactcurrentweatherwebsite.netlify.app/",
@@ -87,7 +113,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    id: 5,
+    id: 6,
     title: "Roomner",
     description: "Android app to find ideal flatmates",
     longDescription:
@@ -99,7 +125,7 @@ const projects: Project[] = [
     featured: false,
   },
   {
-    id: 6,
+    id: 7,
     title: "MovieTime",
     description: "Movie ticket booking system",
     longDescription:
@@ -318,60 +344,72 @@ function TiltCard({ project }: { project: Project }) {
       <div className="group relative h-full flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200">
         {/* Project Image/Icon Area */}
         <div className="relative h-52 bg-gradient-to-br from-primary-500/5 via-white to-accent-500/5 flex items-center justify-center overflow-hidden">
-          {/* Subtle grid background */}
-          <div
-            className="absolute inset-0 opacity-[0.08]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(184,134,11,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(184,134,11,0.3) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-              transform: "perspective(500px) rotateX(50deg) scale(1.8)",
-              transformOrigin: "center bottom",
-            }}
-          />
+          {project.screenshot ? (
+            <Image
+              src={project.screenshot}
+              alt={`${project.title} screenshot`}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              className="object-cover object-top"
+            />
+          ) : (
+            <>
+              {/* Subtle grid background */}
+              <div
+                className="absolute inset-0 opacity-[0.08]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(184,134,11,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(184,134,11,0.3) 1px, transparent 1px)",
+                  backgroundSize: "40px 40px",
+                  transform: "perspective(500px) rotateX(50deg) scale(1.8)",
+                  transformOrigin: "center bottom",
+                }}
+              />
 
-          {/* Orbiting ring behind emoji */}
-          <div
-            className="absolute w-28 h-28 rounded-full border border-primary-500/20"
-            style={{
-              animation: "orbitSpin 8s linear infinite",
-              transformStyle: "preserve-3d",
-              transform: "rotateX(65deg)",
-            }}
-          >
-            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary-400/60" />
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent-400/60" />
-          </div>
+              {/* Orbiting ring behind emoji */}
+              <div
+                className="absolute w-28 h-28 rounded-full border border-primary-500/20"
+                style={{
+                  animation: "orbitSpin 8s linear infinite",
+                  transformStyle: "preserve-3d",
+                  transform: "rotateX(65deg)",
+                }}
+              >
+                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary-400/60" />
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent-400/60" />
+              </div>
 
-          {/* Second orbit ring */}
-          <div
-            className="absolute w-36 h-36 rounded-full border border-accent-500/10"
-            style={{
-              animation: "orbitSpin 12s linear infinite reverse",
-              transformStyle: "preserve-3d",
-              transform: "rotateX(65deg) rotateZ(45deg)",
-            }}
-          >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-purple-400/40" />
-          </div>
+              {/* Second orbit ring */}
+              <div
+                className="absolute w-36 h-36 rounded-full border border-accent-500/10"
+                style={{
+                  animation: "orbitSpin 12s linear infinite reverse",
+                  transformStyle: "preserve-3d",
+                  transform: "rotateX(65deg) rotateZ(45deg)",
+                }}
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-purple-400/40" />
+              </div>
 
-          {/* 3D Animated Emoji */}
-          <span
-            ref={emojiRef}
-            className="text-7xl relative z-10"
-            style={{
-              transformStyle: "preserve-3d",
-              filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.3))",
-            }}
-          >
-            {project.image}
-          </span>
+              {/* 3D Animated Emoji */}
+              <span
+                ref={emojiRef}
+                className="text-7xl relative z-10"
+                style={{
+                  transformStyle: "preserve-3d",
+                  filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.3))",
+                }}
+              >
+                {project.image}
+              </span>
 
-          {/* Ground shadow under emoji */}
-          <div
-            ref={shadowRef}
-            className="absolute bottom-6 w-20 h-4 rounded-full bg-black/30 blur-md z-0"
-          />
+              {/* Ground shadow under emoji */}
+              <div
+                ref={shadowRef}
+                className="absolute bottom-6 w-20 h-4 rounded-full bg-black/30 blur-md z-0"
+              />
+            </>
+          )}
 
           {/* Featured Badge */}
           {project.featured && (

@@ -57,10 +57,8 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-stone-200"
-            : "bg-transparent"
+        className={`fixed top-0 left-0 right-0 z-50 bg-accent-900 transition-all duration-300 ${
+          isScrolled ? "border-b border-white/10" : "border-b border-white/5"
         }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,7 +77,7 @@ export function Navbar() {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                 <span className="text-white font-bold text-lg">CK</span>
               </div>
-              <span className="hidden sm:block font-display font-bold text-lg text-accent-800">
+              <span className="hidden sm:block font-display font-bold text-lg text-white">
                 Chirag Kumar
               </span>
             </motion.a>
@@ -98,15 +96,15 @@ export function Navbar() {
                     }}
                     className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "text-primary-600 bg-primary-50"
-                        : "text-stone-600 hover:text-accent-800 hover:bg-stone-100"
+                        ? "text-primary-400 bg-white/10"
+                        : "text-stone-300 hover:text-white hover:bg-white/5"
                     }`}
                   >
                     {link.name}
                     {isActive && (
                       <motion.span
                         layoutId="nav-indicator"
-                        className="absolute inset-x-2 -bottom-0.5 h-0.5 bg-gradient-to-r from-primary-400 to-accent-500 rounded-full"
+                        className="absolute inset-x-2 -bottom-0.5 h-0.5 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full"
                       />
                     )}
                   </motion.a>
@@ -131,7 +129,7 @@ export function Navbar() {
               {/* Mobile Menu Button */}
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 transition-colors"
+                className="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle menu"
@@ -167,7 +165,7 @@ export function Navbar() {
             />
 
             {/* Menu Panel */}
-            <motion.div className="absolute right-0 top-0 bottom-0 w-72 bg-white border-l border-stone-200 shadow-2xl">
+            <motion.div className="absolute right-0 top-0 bottom-0 w-72 bg-accent-900 border-l border-white/10 shadow-2xl">
               <div className="p-6 pt-20">
                 <nav className="flex flex-col gap-2">
                   {navLinks.map((link, index) => (
@@ -181,7 +179,7 @@ export function Navbar() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="px-4 py-3 text-lg font-medium text-stone-700 hover:text-primary-600 hover:bg-stone-100 rounded-lg transition-all duration-200"
+                      className="px-4 py-3 text-lg font-medium text-stone-300 hover:text-primary-400 hover:bg-white/5 rounded-lg transition-all duration-200"
                     >
                       {link.name}
                     </motion.a>
